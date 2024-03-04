@@ -1,9 +1,11 @@
 import './global.css'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes'
 
 export function App() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <h1>Averiguação 360</h1>
-    </div>
+    <>
+      <RouterProvider router={router} />
+    </>
   )
 }
