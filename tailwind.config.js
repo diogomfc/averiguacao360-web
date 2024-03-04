@@ -58,6 +58,10 @@ module.exports = {
         'linear-color-form-login':
           'linear-gradient(180deg, #CEE3F9 0%, #F5F9FC 47.92%, #CEE3F9 100%)',
       },
+      boxShadow: {
+        'input-form-login':
+          '0px 12px 12px rgba(0, 0, 0, 0.08), 0px 0px 8px rgba(0, 0, 0, 0.08)',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',

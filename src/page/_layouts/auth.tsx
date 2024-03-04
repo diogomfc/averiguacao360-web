@@ -30,7 +30,8 @@ const banners: Banner[] = [
   {
     image: cargoguardian,
     title: 'CargoGuardian',
-    description: 'A IA a serviço da recuperação eficiente de cargas.',
+    description:
+      'Inteligência artificial a serviço da recuperação eficiente de cargas.',
   },
   {
     image: clientbase,
@@ -74,9 +75,9 @@ export function AuthLayout() {
 
   return (
     <div className="grid min-h-screen grid-cols-2">
-      <section className=" bg-hero-pattern flex justify-center border-r border-foreground/5 bg-white bg-cover p-10 ">
+      <section className=" flex justify-center border-r border-foreground/5 bg-white bg-hero-pattern bg-cover p-10 ">
         <div className=" flex h-full flex-col justify-center gap-4   py-4 text-center 2xl:max-w-[550px]">
-          <h1 className="text-3xl text-blue-400 2xl:text-4xl">
+          <h1 className="text-3xl text-primary 2xl:text-4xl">
             Desvende a eficiência com nossa plataforma{' '}
             <span className="font-semibold text-blue-950 ">Inteligente!</span>
           </h1>
@@ -90,7 +91,7 @@ export function AuthLayout() {
             <h2 className="text-2xl font-bold text-blue-950 2xl:text-3xl">
               {banners[currentBanner].title}
             </h2>
-            <p className="text-sm text-blue-950/50 2xl:text-base">
+            <p className="text-sm text-muted-foreground 2xl:text-base">
               {banners[currentBanner].description}
             </p>
           </div>
@@ -102,17 +103,17 @@ export function AuthLayout() {
                 onClick={() => setCurrentBanner(index)}
                 className={`mx-2 h-3 w-3 rounded-full ${
                   index === currentBanner
-                    ? 'bg-blue-400'
-                    : 'bg-slate-100 hover:bg-blue-400/50'
+                    ? 'bg-primary/50'
+                    : 'bg-slate-100 hover:bg-primary/70'
                 }`}
               ></button>
             ))}
           </div>
         </div>
       </section>
-      <main className="bg-linear-color-form-login relative flex items-center justify-center">
+      <main className="relative flex items-center justify-center bg-linear-color-form-login">
         <Outlet />
-        <div className="bg-footer-texture absolute bottom-0 left-0 h-1/2 w-full bg-cover" />
+        <div className="absolute bottom-0 left-0 h-1/2 w-full bg-footer-texture bg-cover" />
       </main>
     </div>
   )
