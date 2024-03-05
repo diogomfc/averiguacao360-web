@@ -74,7 +74,7 @@ export function AuthLayout() {
   }, [currentBanner])
 
   return (
-    <div className="grid min-h-screen grid-cols-2">
+    <div className="grid min-h-screen grid-cols-2 antialiased">
       <section className=" flex justify-center border-r border-foreground/5 bg-white bg-hero-pattern bg-cover p-10 ">
         <div className=" flex h-full flex-col justify-center gap-4   py-4 text-center 2xl:max-w-[550px]">
           <h1 className="text-3xl text-primary 2xl:text-4xl">

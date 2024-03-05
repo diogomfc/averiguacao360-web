@@ -1,14 +1,13 @@
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 
 import { Header } from '@/components/header'
 
 export function Averiguacao360Layout() {
   return (
     <div className="grid-rows-app grid min-h-screen bg-hero-pattern bg-cover antialiased">
-      <header className="fixed top-0 z-50 w-full">
-        <Header />
-      </header>
-      <main className="mx-auto mb-10 mt-14 w-full max-w-[1600px] overflow-y-auto px-4">
+      <Header />
+
+      <main className="mx-auto mb-10 mt-14 w-full max-w-[1600px] flex-1 overflow-y-auto px-4 text-blue-950">
         <Outlet />
       </main>
 
@@ -17,52 +16,52 @@ export function Averiguacao360Layout() {
           <div className="mb-2 flex gap-1">
             <strong>SmartHub</strong>
             <span className="mx-1">•</span>
-            <a
-              href="https://www.pamcary.com.br"
+            <Link
+              to="https://www.pamcary.com.br"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#042F6C] transition-colors duration-300 hover:text-[#10bed5]"
             >
               © 2024 GPS Pamcary
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a
-              href="https://www.pamcary.com.br"
+            <Link
+              to="https://www.pamcary.com.br"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#042F6C] transition-colors duration-300 hover:text-[#10bed5]"
             >
               Sobre
-            </a>
+            </Link>
             <span className="mx-1">•</span>
-            <a
-              href="https://www.pamcary.com.br"
+            <Link
+              to="https://www.pamcary.com.br"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#042F6C] transition-colors duration-300 hover:text-[#10bed5]"
             >
               Contato
-            </a>
+            </Link>
             <span className="mx-1">•</span>
-            <a
-              href="https://www.pamcary.com.br"
+            <Link
+              to="https://www.pamcary.com.br"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#042F6C] transition-colors duration-300 hover:text-[#10bed5]"
             >
               Termos de uso
-            </a>
+            </Link>
             <span className="mx-1">•</span>
-            <a
-              href="https://www.pamcary.com.br"
+            <Link
+              to="https://www.pamcary.com.br"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#042F6C] transition-colors duration-300 hover:text-[#10bed5]"
             >
               Política de privacidade
-            </a>
+            </Link>
           </div>
         </div>
       </footer>

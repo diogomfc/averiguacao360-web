@@ -114,14 +114,14 @@ export function SignIn() {
 
           {/* <div className="flex flex-col items-center">
             <div className="mt-2">
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="text-sm font-light text-muted-foreground hover:underline"
               >
                 <span className="flex gap-1">
                   Não possui conta? <span>Solicite ao seu gerente.</span>
                 </span>
-              </a>
+              </Link>
             </div>
           </div> */}
         </div>

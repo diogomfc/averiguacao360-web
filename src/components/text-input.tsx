@@ -24,9 +24,9 @@ export function TextInput<T extends FieldValues>({
     <div className="relative">
       <input
         className={`
-       hover:shadow-input-form-login focus:shadow-input-form-login peer h-[64px] w-full cursor-default rounded-sm border border-blue-200 bg-white px-5 pt-3 text-base font-medium text-blue-950 
-       placeholder-transparent hover:border-blue-400 hover:outline-none focus:border-blue-400
-       focus:bg-white focus:outline-none
+       peer h-[64px] w-full cursor-default rounded-sm border border-blue-200 bg-white px-5 pt-3 text-base font-medium text-blue-950 placeholder-transparent hover:border-blue-400 
+       hover:shadow-input-form-login hover:outline-none focus:border-blue-400 focus:bg-white
+       focus:shadow-input-form-login focus:outline-none
        ${alert ? 'border-red-500 bg-red-500/10' : 'border-blue-50'}
        ${props.value ? ' ' : 'border border-blue-200'}
        `}

@@ -5,6 +5,7 @@ import {
   User,
   UserRoundCog,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
@@ -54,9 +55,9 @@ export function AccountMenu() {
             <ul className="grid gap-1  md:w-[200px] lg:w-[365px] lg:grid-cols-[1fr_1fr]">
               <li className="">
                 <NavigationMenuLink asChild>
-                  <a
+                  <Link
                     className="flex h-full w-full select-none flex-col items-center  justify-center rounded-md bg-[#22385B] p-4 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    to="/"
                   >
                     <div className="flex flex-col items-center justify-center gap-4 ">
                       <Avatar className="h-[95px] w-[95px] border border-[#51A6E3]/10 bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20">
@@ -84,7 +85,7 @@ export function AccountMenu() {
                         </span>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </NavigationMenuLink>
               </li>
               <li className="py-4">
