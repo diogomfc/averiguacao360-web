@@ -100,7 +100,7 @@ export function SignIn() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="hover:shadow-input-form-login mt-4 w-full rounded-md py-8 text-base font-semibold text-white  hover:bg-opacity-70"
+              className="mt-4 w-full rounded-md py-8 text-base font-semibold text-white hover:bg-opacity-70  hover:shadow-input-form-login"
             >
               {isSubmitting ? (
                 <span className="pt-1">

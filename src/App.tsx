@@ -8,7 +8,7 @@ import { router } from './routes'
 export function App() {
   return (
     <HelmetProvider>
-      <Helmet titleTemplate="%s | Averiguação360" />
+      <Helmet titleTemplate="Smart Hub | %s" />
       <RouterProvider router={router} />
     </HelmetProvider>
   )

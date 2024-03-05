@@ -1,19 +1,29 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import { AppLayout } from './page/_layouts/app'
-import { AuthLayout } from './page/_layouts/auth'
-import { Dashboard } from './page/app/dashboard'
+import { Averiguacao360Layout } from './page/_layouts/app/layout-averiguação360'
+import { HubLayout } from './page/_layouts/app/layout-hub'
+import { AuthLayout } from './page/_layouts/layout-auth'
+import { DashboardAveriguacao360 } from './page/app/averiguacao360/dashboard-averiguacao360'
+import { Hub } from './page/app/hub'
 import { SignIn } from './page/auth/singIn'
 
 export const router = createBrowserRouter([
   {
+    // Rota de autenticação sign-in
     path: '/',
-    element: <AppLayout />,
-    children: [{ path: '/', element: <Dashboard /> }],
+    element: <AuthLayout />,
+    children: [{ path: '/', element: <SignIn /> }],
   },
   {
     path: '/',
-    element: <AuthLayout />,
-    children: [{ path: '/sign-in', element: <SignIn /> }],
+    element: <HubLayout />,
+    children: [{ path: '/Hub', element: <Hub /> }],
+  },
+  {
+    path: '/',
+    element: <Averiguacao360Layout />,
+    children: [
+      { path: '/averiguacao360', element: <DashboardAveriguacao360 /> },
+    ],
   },
 ])

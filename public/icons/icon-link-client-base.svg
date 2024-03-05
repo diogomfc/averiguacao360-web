@@ -1,0 +1,21 @@
+<svg width="62" height="63" viewBox="0 0 62 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7 19H24.4375L25 59H7V19Z" fill="white"/>
+<path d="M25 24V59" stroke="#042F6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.44434 59.5V24.3418" stroke="#042F6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2 60H60" stroke="#042F6C" stroke-width="3" stroke-linecap="round"/>
+<path d="M60 24.3429H1.99995V14.6569L31 2L60 14.6569V24.3429Z" fill="url(#paint0_linear_195_18564)" stroke="#042F6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M52 44C52 44.8284 52.6716 45.5 53.5 45.5C54.3284 45.5 55 44.8284 55 44H52ZM52 25V44H55V25H52Z" fill="#042F6C"/>
+<path d="M61.4193 36.6235C61.3319 35.285 60.2728 34.2667 58.948 34.0574C57.4487 33.8205 55.4816 33.459 53.9692 33.001C52.1205 32.4412 49.5925 31.3261 48.0698 30.624C47.2312 30.2374 46.262 30.2374 45.4234 30.624C43.9007 31.3261 41.3727 32.4412 39.524 33.001C38.0116 33.459 36.0445 33.8205 34.5452 34.0574C33.2204 34.2667 32.1613 35.285 32.0739 36.6235C31.6954 42.4228 32.073 57.7458 45.9128 62.3047C46.4474 62.4807 47.0458 62.4807 47.5803 62.3047C61.4202 57.7458 61.7978 42.4228 61.4193 36.6235Z" fill="#C8D1EA"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M48.6869 57.7692C49.3307 57.4776 49.9282 57.1495 50.4826 56.7901L45.1185 34.8522C44.5645 35.1089 43.9226 35.3965 43.2814 35.6622L48.6869 57.7692ZM47.0526 34.4395L52.1941 55.4666C53.5118 54.2592 54.5081 52.8459 55.2578 51.3506L51.5476 36.1768C50.431 35.7871 49.0904 35.1884 48.11 34.7284C47.7731 34.5704 47.4152 34.4741 47.0526 34.4395Z" fill="white"/>
+<path d="M57.4018 39.6069C57.3433 38.2655 56.2854 37.2428 54.9634 37.0079C53.9916 36.8352 52.8737 36.6024 51.9766 36.3211C50.791 35.9492 49.2194 35.2507 48.1096 34.73C47.2468 34.3253 46.2461 34.3253 45.3834 34.73C44.2735 35.2507 42.702 35.9492 41.5163 36.3211C40.6192 36.6024 39.5013 36.8352 38.5295 37.0079C37.2075 37.2428 36.1496 38.2655 36.0911 39.6069C35.8879 44.2736 36.5198 54.8331 45.8929 58.2112C46.4405 58.4085 47.0524 58.4085 47.6 58.2112C56.9731 54.8331 57.6051 44.2736 57.4018 39.6069Z" stroke="#2571BC" stroke-width="2"/>
+<path d="M13.5 36V39" stroke="#042F6C" stroke-width="3" stroke-linecap="round"/>
+<path d="M20 36V39" stroke="#042F6C" stroke-width="3" stroke-linecap="round"/>
+<path d="M20 47V50" stroke="#042F6C" stroke-width="3" stroke-linecap="round"/>
+<path d="M14 47V50" stroke="#042F6C" stroke-width="3" stroke-linecap="round"/>
+<defs>
+<linearGradient id="paint0_linear_195_18564" x1="31" y1="2" x2="28.6375" y2="16.1781" gradientUnits="userSpaceOnUse">
+<stop stop-color="#9ECFFF"/>
+<stop offset="1" stop-color="#DBEDFF"/>
+</linearGradient>
+</defs>
+</svg>

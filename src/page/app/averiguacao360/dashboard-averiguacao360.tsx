@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 
-export function Dashboard() {
+export function DashboardAveriguacao360() {
   return (
     <>
-      <Helmet title="Dashboard" />
+      <Helmet title="Averiguação360 - Dashboard" />
       <div className="flex h-screen items-center justify-center">
-        <h1>Dashboard</h1>
+        <h1>Averiguação360</h1>
       </div>
     </>
   )
