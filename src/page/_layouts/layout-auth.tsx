@@ -74,9 +74,9 @@ export function AuthLayout() {
   }, [currentBanner])
 
   return (
-    <div className="grid min-h-screen grid-cols-2 antialiased">
-      <section className=" flex justify-center border-r border-foreground/5 bg-white bg-hero-pattern bg-cover p-10 ">
-        <div className=" flex h-full flex-col justify-center gap-4   py-4 text-center 2xl:max-w-[550px]">
+    <div className="grid min-h-screen antialiased lg:grid-cols-2 ">
+      <section className="hidden justify-center border-r border-foreground/5 bg-white bg-hero-pattern bg-cover p-10 lg:block">
+        <div className=" flex h-full flex-col justify-center gap-4 py-4 text-center ">
           <h1 className="text-3xl text-primary 2xl:text-4xl">
             Desvende a eficiência com nossa plataforma{' '}
             <span className="font-semibold text-blue-950 ">Inteligente!</span>
@@ -111,7 +111,28 @@ export function AuthLayout() {
           </div>
         </div>
       </section>
+
       <main className="relative flex items-center justify-center bg-linear-color-form-login">
+        {/* <div className="absolute top-5 block w-[500px] text-center lg:hidden">
+          <h1 className="pb-4 pt-2 text-xl text-primary">
+            Desvende a eficiência com nossa plataforma{' '}
+            <span className="font-semibold text-blue-950 ">Inteligente!</span>
+          </h1>
+
+          <div className=" flex flex-col gap-2">
+            <img
+              src={banners[currentBanner].image}
+              alt={banners[currentBanner].title}
+              className="mx-auto h-32 w-32"
+            />
+            <h2 className="text-sm font-bold text-blue-950 ">
+              {banners[currentBanner].title}
+            </h2>
+            <p className="text-sm text-muted-foreground 2xl:text-base">
+              {banners[currentBanner].description}
+            </p>
+          </div>
+        </div> */}
         <Outlet />
         <div className="absolute bottom-0 left-0 h-1/2 w-full bg-footer-texture bg-cover" />
       </main>

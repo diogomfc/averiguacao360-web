@@ -109,7 +109,7 @@ export function HubMenuSheet() {
                       <span className="text-xs font-semibold ">
                         Averiguação360
                       </span>
-                      <span className="text-[11.63px] font-normal font-normal text-muted-foreground">
+                      <span className="text-[11.63px] font-normal text-muted-foreground">
                         Gestão inteligente de averiguação
                       </span>
                     </div>
@@ -160,7 +160,7 @@ export function HubMenuSheet() {
                         <span className="text-xs font-semibold ">
                           CargaSafe
                         </span>
-                        <span className="w-[210px] text-[11.63px]  font-normal font-normal  text-muted-foreground">
+                        <span className="w-[210px] text-[11.63px] font-normal  text-muted-foreground">
                           Mapeamento Inteligente
                         </span>
                       </div>
