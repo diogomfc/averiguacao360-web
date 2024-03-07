@@ -15,6 +15,7 @@ export async function signIn({ email, senha }: SignInBody) {
   // Pegar o token do usuário e armazenar em um cookie
   const token = response.data.token
 
+  // definindo o cabeçalho de autorização para todas as requisições
   api.defaults.headers.authorization = `Bearer ${token}`
 
   // Setar o token do usuário no cookie

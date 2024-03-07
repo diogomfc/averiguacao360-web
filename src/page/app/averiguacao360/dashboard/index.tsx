@@ -21,30 +21,6 @@ import { CardNewReport } from './card-new-report'
 import { CardStatusReport, ItemCardStatus } from './card-status-report'
 import { CardStepStatusReport } from './card-step-status-report'
 import { CardTableListReport } from './card-table/card-table-list-report'
-// import { TableListRow } from './card-table/table-row'
-
-// const usuariosPerfil = [
-//   {
-//     id: 1,
-//     nome: 'João da Silva',
-//     avatar: 'https://randomuser.me/api',
-//   },
-//   {
-//     id: 2,
-//     nome: 'Maria Oliveira',
-//     avatar: 'https://randomuser.me/api',
-//   },
-//   {
-//     id: 3,
-//     nome: 'José Santos',
-//     avatar: 'https://randomuser.me/api',
-//   },
-//   {
-//     id: 4,
-//     nome: 'Ana Souza',
-//     avatar: 'https://randomuser.me/api',
-//   },
-// ]
 
 export function DashboardAveriguacao360() {
   return (

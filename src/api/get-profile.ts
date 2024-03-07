@@ -4,7 +4,7 @@ import { api } from '@/lib/axios'
 
 type Funcao = 'Admin' | 'Supervisor' | 'Analista' | 'Revisor'
 
-interface GetProfileResponse {
+export interface GetProfileResponse {
   id: string
   nome: string
   email: string
