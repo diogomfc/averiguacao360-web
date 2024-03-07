@@ -1,11 +1,17 @@
+import { useQuery } from '@tanstack/react-query'
 import {
   Building,
   ChevronDownIcon,
+  LogOut,
   Mail,
   User,
   UserRoundCog,
 } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { destroyCookie } from 'nookies'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { getProfile } from '@/api/get-profile'
+import { env } from '@/env'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
@@ -17,57 +23,89 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '../ui/navigation-menu-user'
+import { Skeleton } from '../ui/skeleton'
 
 export function AccountMenu() {
+  const navigate = useNavigate()
+
+  const { data: profile, isLoading: isLoadingProfile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: getProfile,
+    staleTime: Infinity,
+  })
+
+  // Função para fazer o logout
+  const signOut = async () => {
+    destroyCookie(undefined, 'auth.token')
+    navigate('/')
+  }
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className=" m-0 flex h-full w-full cursor-pointer rounded-none border-0 bg-transparent  p-0 hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
             {/* Perfil */}
-            <div className="group flex cursor-pointer items-center gap-3 rounded-3xl border border-transparent bg-[#22385B] pr-3 transition-colors duration-300 hover:border-l-0  hover:border-[#51A6E3]/20 hover:text-white">
-              <Avatar className=" border border-[#51A6E3]/10 bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20">
-                <AvatarImage
-                  src="https://media.licdn.com/dms/image/C4E03AQHle4csx8JFHA/profile-displayphoto-shrink_200_200/0/1651785432781?e=1715212800&v=beta&t=ZxV1hCCgG8vRDWtTKIT2dPUo7V4jV-KqB5X7N3CjaXY"
-                  alt="Avatar"
-                  className="h-full w-full rounded-full object-cover"
-                />
-                <AvatarFallback
-                  title="Diogo Silva"
-                  className="border border-[#51A6E3]/20 bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20"
-                >
-                  <User size={20} />
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col ">
-                <span>Diogo Silva</span>
-                <span className="flex text-xs font-normal text-muted-foreground">
-                  Analista
-                </span>
-              </div>
+            <div className="group flex cursor-pointer items-center gap-3 rounded-3xl border border-transparent bg-[#22385B] pr-3 transition-colors duration-300 hover:border-l-0  hover:border-[#51A6E3]/20">
+              {isLoadingProfile ? (
+                <>
+                  <div>
+                    <Skeleton className="h-8 w-8 rounded-full bg-muted-foreground " />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Skeleton className="h-3 w-32 bg-muted-foreground" />
+                    <Skeleton className="h-2 w-24 bg-muted-foreground" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Avatar className=" border border-[#51A6E3]/10 bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20">
+                    <AvatarImage
+                      src={`${env.VITE_API_URL}/images/avatar/${profile?.avatar}`}
+                      alt="Avatar"
+                      className="h-full w-full rounded-full object-cover"
+                    />
+                    <AvatarFallback
+                      title={profile?.nome}
+                      className="border border-[#51A6E3]/20 bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20"
+                    >
+                      <User size={20} />
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col ">
+                    <span className="text-[rgb(177,199,223)] group-hover:text-white">
+                      {profile?.nome}
+                    </span>
+                    <span className="flex text-xs font-normal text-muted-foreground">
+                      {profile?.funcao}
+                    </span>
+                  </div>
+                </>
+              )}
+
               <ChevronDownIcon
                 className="relative ml-1  h-3 w-3 transition duration-300 group-hover:text-[#20A6B9] group-data-[state=open]:rotate-180"
                 aria-hidden="true"
               />
             </div>
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-1  md:w-[200px] lg:w-[365px] lg:grid-cols-[1fr_1fr]">
+          <NavigationMenuContent className="">
+            <ul className="w-[250px]">
               <li className="">
                 <NavigationMenuLink asChild>
                   <Link
-                    className="flex h-full w-full select-none flex-col items-center  justify-center rounded-md bg-[#22385B] p-4 no-underline outline-none focus:shadow-md"
-                    to="/"
+                    className="flex h-full w-full select-none flex-col items-center  justify-center  bg-[#22385B] p-4 no-underline outline-none focus:shadow-md"
+                    to="#"
                   >
                     <div className="flex flex-col items-center justify-center gap-4 ">
                       <Avatar className="h-[95px] w-[95px] border border-[#51A6E3]/10 bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20">
                         <AvatarImage
-                          src="https://media.licdn.com/dms/image/C4E03AQHle4csx8JFHA/profile-displayphoto-shrink_200_200/0/1651785432781?e=1715212800&v=beta&t=ZxV1hCCgG8vRDWtTKIT2dPUo7V4jV-KqB5X7N3CjaXY"
+                          src={`${env.VITE_API_URL}/images/avatar/${profile?.avatar}`}
                           alt="Avatar"
                           className="h-full w-full rounded-full object-cover"
                         />
                         <AvatarFallback
-                          title="Diogo Silva"
+                          title={profile?.nome}
                           className="border border-[#51A6E3]/10 bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20"
                         >
                           <User
@@ -79,9 +117,11 @@ export function AccountMenu() {
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex flex-col items-center justify-center text-[rgb(177,199,223)]">
-                        <span className="text-xs font-light">Diogo Silva</span>
+                        <span className="text-center text-xs font-light">
+                          {profile?.nome}
+                        </span>
                         <span className="text-xs font-normal text-muted-foreground">
-                          Analista
+                          {profile?.funcao}
                         </span>
                       </div>
                     </div>
@@ -95,7 +135,7 @@ export function AccountMenu() {
                 >
                   <div className="flex items-center gap-1">
                     <Mail size={14} />
-                    <span className="text-xs ">diogomfc@hotmail.com</span>
+                    <span className="text-xs ">{profile?.email}</span>
                   </div>
                 </Button>
                 <Button
@@ -109,10 +149,19 @@ export function AccountMenu() {
                 </Button>
                 <Button
                   variant="ghost"
-                  className="hover:text-lightMode-colors-blue-300 flex items-center gap-1 transition-colors duration-300 hover:bg-transparent"
+                  className="flex items-center gap-1 transition-colors duration-300 hover:bg-transparent hover:text-primary"
                 >
                   <UserRoundCog size={14} />
                   <span className="text-xs ">Editar Perfil</span>
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  className="flex items-center gap-1 transition-colors duration-300 hover:bg-transparent hover:text-red-500"
+                  onClick={signOut}
+                >
+                  <LogOut size={14} />
+                  <span className="text-xs ">Sair</span>
                 </Button>
               </li>
             </ul>

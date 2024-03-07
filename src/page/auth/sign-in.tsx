@@ -1,11 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { BeatLoader } from 'react-spinners'
 import * as z from 'zod'
 
+import { signIn } from '@/api/sign-in'
 import { TextInput } from '@/components/text-input'
 import { Button } from '@/components/ui/button'
+import { handleAxiosError } from '@/utils/handleErrors'
 
 import logoPamShub from '../../assets/logo-pam-shub-login.svg'
 
@@ -19,6 +23,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 
 export function SignIn() {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -30,18 +35,20 @@ export function SignIn() {
 
   const { isSubmitting } = formState
 
+  const mutation = useMutation({
+    mutationFn: signIn,
+  })
+
   const handleSignIn: SubmitHandler<FormValues> = async (data) => {
     try {
       console.log(data)
-      await new Promise((resolve) => setTimeout(resolve, 20000))
-      // await signIn({ email: data.email, senha: data.senha })
+      // await new Promise((resolve) => setTimeout(resolve, 20000))
+      await mutation.mutateAsync({ email: data.email, senha: data.senha })
+      navigate('/averiguacao360')
     } catch (error) {
-      console.log(error)
+      const errorMessage = handleAxiosError(error)
+      console.log(errorMessage)
     }
-  }
-
-  const handleInputFocus = () => {
-    // authErrors.length > 0 && authErrors.splice(0, authErrors.length)
   }
 
   return (
@@ -73,7 +80,6 @@ export function SignIn() {
               placeholder="E-mail"
               register={register}
               alert={formErrors.email ? formErrors.email.message : ''}
-              onFocus={handleInputFocus}
               disabled={isSubmitting}
             />
 
@@ -85,18 +91,15 @@ export function SignIn() {
               defaultValue={''}
               register={register}
               alert={formErrors.senha ? formErrors.senha.message : ''}
-              onFocus={handleInputFocus}
               disabled={isSubmitting}
             />
 
-            {/* {authErrors.map((error) => (
-              <span
-                key={error.message}
-                className="text-lightMode-colors-red-default pl-4 text-xs"
-              >
-                {error.message}
+            {mutation.isError && !isSubmitting && (
+              <span className="text-xs text-muted-foreground text-red-500">
+                {handleAxiosError(mutation.error).message}
               </span>
-            ))} */}
+            )}
+
             <Button
               type="submit"
               disabled={isSubmitting}
