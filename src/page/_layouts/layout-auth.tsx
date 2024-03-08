@@ -97,7 +97,7 @@ export function AuthLayout() {
           </div>
           {/* Botões dinâmicos */}
           <div className="flex justify-center ">
-            {banners.map((banner, index) => (
+            {banners.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentBanner(index)}
