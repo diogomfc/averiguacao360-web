@@ -1,17 +1,16 @@
-import { FilePenLine, RefreshCcw, UsersRound } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
+import { RefreshCcw } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 
-import { ProgressStatus } from '@/components/progress-status'
+import { gerAllReport } from '@/api/get-all-report'
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card'
+  RelatorioStatus,
+  RelatorioStatusIcon,
+} from '@/components/report-status'
 import { Separator } from '@/components/ui/separator'
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -20,9 +19,27 @@ import {
 import { CardNewReport } from './card-new-report'
 import { CardStatusReport, ItemCardStatus } from './card-status-report'
 import { CardStepStatusReport } from './card-step-status-report'
-import { CardTableListReport } from './card-table/card-table-list-report'
+import { CardTableReport } from './card-table-report/card-table'
+import { CardTableRowReport } from './card-table-report/card-table-row'
 
 export function DashboardAveriguacao360() {
+  // /isLoading: isLoadingRelatorios
+  const { data: relatorios } = useQuery({
+    queryKey: ['relatorios'],
+    queryFn: gerAllReport,
+  })
+
+  // Verificar status do relatório
+  const relatorioData = relatorios?.relatorio_filtrado
+
+  // Quantidade de relatórios status Formalizando
+  function totalRelatoriosPorStatus(status: RelatorioStatus) {
+    return (
+      relatorioData?.filter((relatorio) => relatorio.status === status)
+        .length || 0
+    )
+  }
+
   return (
     <>
       <Helmet title="Averiguação360 - Dashboard" />
@@ -62,7 +79,7 @@ export function DashboardAveriguacao360() {
                 description="Relatorio de Averiguação"
                 icon="averiguacao360/icons/icon-relatorio.svg"
                 link="/averiguacao360/list-reports"
-                qtd={10}
+                qtd={totalRelatoriosPorStatus('Formalizando')}
               />
             </div>
             <div className="relative col-span-3">
@@ -72,13 +89,13 @@ export function DashboardAveriguacao360() {
               >
                 <div className="flex gap-16 lg:gap-4">
                   <ItemCardStatus
-                    qtd={25}
+                    qtd={totalRelatoriosPorStatus('Recuperado')}
                     statusConclusao="Recuperado"
                     description="Recuperado"
                     link="/averiguacao360/recuperados"
                   />
                   <ItemCardStatus
-                    qtd={15}
+                    qtd={totalRelatoriosPorStatus('Irreversivel')}
                     statusConclusao="Irreversivel"
                     description="Irreversíveis"
                     link="/averiguacao360/irreversivel"
@@ -87,382 +104,82 @@ export function DashboardAveriguacao360() {
               </CardStatusReport>
             </div>
             <div className="relative col-span-6">
-              <CardTableListReport
+              <CardTableReport
                 title="Meus relatórios"
                 description="Exibindo os 4 relatórios mais recentes."
                 icon="averiguacao360/icons/icon-relatorio-list.svg"
                 link="/averiguacao360/list-reports"
               >
                 {/* Table List */}
-                <Table>
-                  <TableHeader className="bg-blue-50/50">
-                    <TableRow className=" text-xs hover:bg-transparent">
-                      <TableHead className="flex items-center justify-end">
-                        <RefreshCcw
-                          size={16}
-                          aria-label="Atualizar"
-                          className="cursor-pointer transition-transform duration-500 ease-in-out hover:rotate-180 hover:transform hover:opacity-50"
-                          onClick={() => {}}
-                        />
-                      </TableHead>
-                      <TableHead className="pl-0">Segurado</TableHead>
-                      <TableHead className="w-[80px] ">Progresso</TableHead>
-                      <TableHead className="w-[80px] ">Etapas</TableHead>
-                      <TableHead className="w-[80px] ">Data</TableHead>
-                      <TableHead className="w-[80px] "></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody className=" ">
-                    <TableRow className=" cursor-pointer  hover:bg-blue-50/50">
-                      <TableCell className=" py-1">
-                        <div className="flex items-center justify-end gap-1 ">
-                          <div className=" w-[16px] bg-blue-50 ">
-                            <img
-                              src="averiguacao360/icons/icon-relatorio-revisao.svg"
-                              alt="Relatório"
-                            />
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" max-w-[110px]  px-0 py-1 md:w-full 2xl:max-w-full">
-                        <div className="flex flex-col justify-center ">
-                          <h1 className=" truncate text-xs font-semibold">
-                            João da Silva Ribeiro lima silva silva silva silva
-                            silva
-                          </h1>
-                          <span className="text-[11.63px] text-muted-foreground ">
-                            Nº 400.0001
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="px-1  py-1">
-                        <div className="flex w-[80px] flex-col items-center gap-2">
-                          <h1 className="text-xs font-semibold">25%</h1>
-                          <ProgressStatus
-                            initialValue={1}
-                            finalValue={25}
-                            delay={500}
+                {relatorioData?.length ? (
+                  <Table>
+                    <TableHeader className="bg-blue-50/50">
+                      <TableRow className=" text-xs hover:bg-transparent">
+                        <TableHead className="flex items-center justify-end">
+                          <RefreshCcw
+                            size={16}
+                            aria-label="Atualizar"
+                            className="cursor-pointer transition-transform duration-500 ease-in-out hover:rotate-180 hover:transform hover:opacity-50"
+                            onClick={() => {}}
                           />
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-1 py-1">
-                        <div className="flex w-[80px] flex-col items-center">
-                          <h1 className="text-xs font-semibold">9/18</h1>
-                          <span className="text-[11.63px] text-muted-foreground">
-                            {18 - 9} pendente
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-1 py-1">
-                        <div className="flex flex-col  items-center">
-                          <h1 className="text-xs font-semibold">15/09/2021</h1>
-                          <span className="text-[11.63px] text-muted-foreground">
-                            há 25 dia(s)
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-4 py-1">
-                        <div className="flex items-center justify-center gap-1 ">
-                          {/* Editar */}
-                          <HoverCard>
-                            <HoverCardTrigger
-                              asChild
-                              className="h-auto w-auto cursor-pointer hover:text-blue-400"
-                              onClick={() => {}}
-                            >
-                              <FilePenLine size={20} strokeWidth={1.5} />
-                            </HoverCardTrigger>
-                            <HoverCardContent className="h-auto w-auto ">
-                              <span className="text-muted-foreground ">
-                                Editar relatório
-                              </span>
-                            </HoverCardContent>
-                          </HoverCard>
-                          {/* Grupo de Averiguação */}
-                          <HoverCard>
-                            <HoverCardTrigger
-                              asChild
-                              className="h-auto w-auto cursor-pointer hover:text-blue-400"
-                            >
-                              <UsersRound size={20} strokeWidth={1.5} />
-                            </HoverCardTrigger>
-                            <HoverCardContent
-                              align="end"
-                              className="w-auto grid-cols-2 rounded-lg border border-blue-200 p-4"
-                            >
-                              {/* usuários */}
-                            </HoverCardContent>
-                          </HoverCard>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className=" cursor-pointer  hover:bg-blue-50/50">
-                      <TableCell className=" py-1">
-                        <div className="flex items-center justify-end gap-1 ">
-                          <div className=" w-[16px] bg-blue-50 ">
-                            <img
-                              src="averiguacao360/icons/icon-relatorio-revisao.svg"
-                              alt="Relatório"
-                            />
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" max-w-[110px]  px-0 py-1 md:w-full 2xl:max-w-full">
-                        <div className="flex flex-col justify-center ">
-                          <h1 className=" truncate text-xs font-semibold">
-                            João da Silva Ribeiro lima silva silva silva silva
-                            silva
-                          </h1>
-                          <span className="text-[11.63px] text-muted-foreground ">
-                            Nº 400.0001
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="px-1  py-1">
-                        <div className="flex w-[80px] flex-col items-center gap-2">
-                          <h1 className="text-xs font-semibold">25%</h1>
-                          <ProgressStatus
-                            initialValue={1}
-                            finalValue={25}
-                            delay={500}
+                        </TableHead>
+                        <TableHead className="pl-0">Segurado</TableHead>
+                        <TableHead className="w-[80px] ">Progresso</TableHead>
+                        <TableHead className="w-[80px] ">Etapas</TableHead>
+                        <TableHead className="w-[80px] ">Data</TableHead>
+                        <TableHead className="w-[80px] "></TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody className=" ">
+                      {relatorioData?.slice(0, 4).map((report) => {
+                        return (
+                          <CardTableRowReport
+                            key={report.id}
+                            linkFormsReport={() => {}}
+                            statusReport={
+                              <RelatorioStatusIcon status={report.status} />
+                            }
+                            cliente={report.cliente}
+                            numeroProcesso={report.numero_processo}
+                            dataEntrada={report.data_entrada}
+                            qtdEtapasFormulario={
+                              report.formularios_selecionados.length
+                            }
+                            grupoUsuariosPermitido={report.usuarios_permitidos.map(
+                              (usuario) => {
+                                return {
+                                  id: usuario.id,
+                                  nome: usuario.nome,
+                                  email: usuario.email,
+                                  telefone: usuario.telefone,
+                                  avatar: usuario.avatar,
+                                  funcao: usuario.funcao,
+                                }
+                              },
+                            )}
                           />
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-1 py-1">
-                        <div className="flex w-[80px] flex-col items-center">
-                          <h1 className="text-xs font-semibold">9/18</h1>
-                          <span className="text-[11.63px] text-muted-foreground">
-                            {18 - 9} pendente
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-1 py-1">
-                        <div className="flex flex-col  items-center">
-                          <h1 className="text-xs font-semibold">15/09/2021</h1>
-                          <span className="text-[11.63px] text-muted-foreground">
-                            há 25 dia(s)
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-4 py-1">
-                        <div className="flex items-center justify-center gap-1 ">
-                          {/* Editar */}
-                          <HoverCard>
-                            <HoverCardTrigger
-                              asChild
-                              className="h-auto w-auto cursor-pointer hover:text-blue-400"
-                              onClick={() => {}}
-                            >
-                              <FilePenLine size={20} strokeWidth={1.5} />
-                            </HoverCardTrigger>
-                            <HoverCardContent className="h-auto w-auto ">
-                              <span className="text-muted-foreground ">
-                                Editar relatório
-                              </span>
-                            </HoverCardContent>
-                          </HoverCard>
-                          {/* Grupo de Averiguação */}
-                          <HoverCard>
-                            <HoverCardTrigger
-                              asChild
-                              className="h-auto w-auto cursor-pointer hover:text-blue-400"
-                            >
-                              <UsersRound size={20} strokeWidth={1.5} />
-                            </HoverCardTrigger>
-                            <HoverCardContent
-                              align="end"
-                              className="w-auto grid-cols-2 rounded-lg border border-blue-200 p-4"
-                            >
-                              {/* usuários */}
-                            </HoverCardContent>
-                          </HoverCard>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className=" cursor-pointer  hover:bg-blue-50/50">
-                      <TableCell className=" py-1">
-                        <div className="flex items-center justify-end gap-1 ">
-                          <div className=" w-[16px] bg-blue-50 ">
-                            <img
-                              src="averiguacao360/icons/icon-relatorio-revisao.svg"
-                              alt="Relatório"
-                            />
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" max-w-[110px]  px-0 py-1 md:w-full 2xl:max-w-full">
-                        <div className="flex flex-col justify-center ">
-                          <h1 className=" truncate text-xs font-semibold">
-                            João da Silva Ribeiro lima silva silva silva silva
-                            silva
-                          </h1>
-                          <span className="text-[11.63px] text-muted-foreground ">
-                            Nº 400.0001
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="px-1  py-1">
-                        <div className="flex w-[80px] flex-col items-center gap-2">
-                          <h1 className="text-xs font-semibold">25%</h1>
-                          <ProgressStatus
-                            initialValue={1}
-                            finalValue={25}
-                            delay={500}
-                          />
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-1 py-1">
-                        <div className="flex w-[80px] flex-col items-center">
-                          <h1 className="text-xs font-semibold">9/18</h1>
-                          <span className="text-[11.63px] text-muted-foreground">
-                            {18 - 9} pendente
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-1 py-1">
-                        <div className="flex flex-col  items-center">
-                          <h1 className="text-xs font-semibold">15/09/2021</h1>
-                          <span className="text-[11.63px] text-muted-foreground">
-                            há 25 dia(s)
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-4 py-1">
-                        <div className="flex items-center justify-center gap-1 ">
-                          {/* Editar */}
-                          <HoverCard>
-                            <HoverCardTrigger
-                              asChild
-                              className="h-auto w-auto cursor-pointer hover:text-blue-400"
-                              onClick={() => {}}
-                            >
-                              <FilePenLine size={20} strokeWidth={1.5} />
-                            </HoverCardTrigger>
-                            <HoverCardContent className="h-auto w-auto ">
-                              <span className="text-muted-foreground ">
-                                Editar relatório
-                              </span>
-                            </HoverCardContent>
-                          </HoverCard>
-                          {/* Grupo de Averiguação */}
-                          <HoverCard>
-                            <HoverCardTrigger
-                              asChild
-                              className="h-auto w-auto cursor-pointer hover:text-blue-400"
-                            >
-                              <UsersRound size={20} strokeWidth={1.5} />
-                            </HoverCardTrigger>
-                            <HoverCardContent
-                              align="end"
-                              className="w-auto grid-cols-2 rounded-lg border border-blue-200 p-4"
-                            >
-                              {/* usuários */}
-                            </HoverCardContent>
-                          </HoverCard>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className=" cursor-pointer  hover:bg-blue-50/50">
-                      <TableCell className=" py-1">
-                        <div className="flex items-center justify-end gap-1 ">
-                          <div className=" w-[16px] bg-blue-50 ">
-                            <img
-                              src="averiguacao360/icons/icon-relatorio-revisao.svg"
-                              alt="Relatório"
-                            />
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" max-w-[110px]  px-0 py-1 md:w-full 2xl:max-w-full">
-                        <div className="flex flex-col justify-center ">
-                          <h1 className=" truncate text-xs font-semibold">
-                            João da Silva Ribeiro lima silva silva silva silva
-                            silva
-                          </h1>
-                          <span className="text-[11.63px] text-muted-foreground ">
-                            Nº 400.0001
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="px-1  py-1">
-                        <div className="flex w-[80px] flex-col items-center gap-2">
-                          <h1 className="text-xs font-semibold">25%</h1>
-                          <ProgressStatus
-                            initialValue={1}
-                            finalValue={25}
-                            delay={500}
-                          />
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-1 py-1">
-                        <div className="flex w-[80px] flex-col items-center">
-                          <h1 className="text-xs font-semibold">9/18</h1>
-                          <span className="text-[11.63px] text-muted-foreground">
-                            {18 - 9} pendente
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-1 py-1">
-                        <div className="flex flex-col  items-center">
-                          <h1 className="text-xs font-semibold">15/09/2021</h1>
-                          <span className="text-[11.63px] text-muted-foreground">
-                            há 25 dia(s)
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className=" px-4 py-1">
-                        <div className="flex items-center justify-center gap-1 ">
-                          {/* Editar */}
-                          <HoverCard>
-                            <HoverCardTrigger
-                              asChild
-                              className="h-auto w-auto cursor-pointer hover:text-blue-400"
-                              onClick={() => {}}
-                            >
-                              <FilePenLine size={20} strokeWidth={1.5} />
-                            </HoverCardTrigger>
-                            <HoverCardContent className="h-auto w-auto ">
-                              <span className="text-muted-foreground ">
-                                Editar relatório
-                              </span>
-                            </HoverCardContent>
-                          </HoverCard>
-                          {/* Grupo de Averiguação */}
-                          <HoverCard>
-                            <HoverCardTrigger
-                              asChild
-                              className="h-auto w-auto cursor-pointer hover:text-blue-400"
-                            >
-                              <UsersRound size={20} strokeWidth={1.5} />
-                            </HoverCardTrigger>
-                            <HoverCardContent
-                              align="end"
-                              className="w-auto grid-cols-2 rounded-lg border border-blue-200 p-4"
-                            >
-                              {/* usuários */}
-                            </HoverCardContent>
-                          </HoverCard>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-                {/* <div className="flex flex-col items-center justify-center gap-4 p-4">
-                  <img
-                    src="averiguacao360/icons/icon-relatorio-list.svg"
-                    alt="Relatório"
-                    width={50}
-                    height={50}
-                    className="opacity-10"
-                  />
-                  <h1 className="text-lg font-semibold">
-                    Você ainda não possui relatórios
-                  </h1>
-                  <p className="text-center text-sm">
-                    Crie um novo relatório para começar a utilizar o sistema
-                  </p>
-                </div> */}
-              </CardTableListReport>
+                        )
+                      })}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <div className="flex flex-col items-center justify-center gap-4 p-4">
+                    <img
+                      src="averiguacao360/icons/icon-relatorio-list.svg"
+                      alt="Relatório"
+                      width={50}
+                      height={50}
+                      className="opacity-10"
+                    />
+                    <h1 className="text-lg font-semibold">
+                      Você ainda não possui relatórios
+                    </h1>
+                    <p className="text-center text-sm">
+                      Crie um novo relatório para começar a utilizar o sistema
+                    </p>
+                  </div>
+                )}
+              </CardTableReport>
             </div>
           </section>
 
@@ -472,7 +189,7 @@ export function DashboardAveriguacao360() {
               <CardStepStatusReport
                 description="Relatórios em processo de Revisão"
                 status="Revisao"
-                qtd={25}
+                qtd={totalRelatoriosPorStatus('Revisao')}
                 link="/averiguacao360/revisao"
               />
             </div>
@@ -480,7 +197,7 @@ export function DashboardAveriguacao360() {
               <CardStepStatusReport
                 description="Relatórios aprovados para emissão"
                 status="Aprovado"
-                qtd={5}
+                qtd={totalRelatoriosPorStatus('Aprovado')}
                 link="/averiguacao360/aprovados"
               />
             </div>
@@ -488,7 +205,7 @@ export function DashboardAveriguacao360() {
               <CardStepStatusReport
                 description="Relatórios emitidos"
                 status="Emitido"
-                qtd={85}
+                qtd={totalRelatoriosPorStatus('Emitido')}
                 link="/averiguacao360/emitidos"
               />
             </div>
@@ -496,7 +213,7 @@ export function DashboardAveriguacao360() {
               <CardStepStatusReport
                 description="Relatórios retornados para correção"
                 status="Corrigir"
-                qtd={3}
+                qtd={totalRelatoriosPorStatus('Corrigir')}
                 link="/averiguacao360/corrigir"
               />
             </div>

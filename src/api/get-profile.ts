@@ -15,18 +15,13 @@ export interface GetProfileResponse {
 }
 
 export async function getProfile() {
-  try {
-    const { 'auth.token': token } = parseCookies()
+  const { 'auth.token': token } = parseCookies()
 
-    const response = await api.get<GetProfileResponse>('/usuarios/perfil', {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    })
+  const response = await api.get<GetProfileResponse>('/usuarios/perfil', {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  })
 
-    // console.log('Perfil do usuário:', response.data)
-    return response.data
-  } catch (error) {
-    console.error('Erro ao obter perfil do usuário:', error)
-  }
+  return response.data
 }

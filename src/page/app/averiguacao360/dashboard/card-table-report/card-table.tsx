@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Separator } from '@/components/ui/separator'
 
-export interface CardListReportProps {
+export interface CardTableReportProps {
   title: string
   description: string
   icon: string
@@ -12,13 +12,13 @@ export interface CardListReportProps {
   children: React.ReactNode
 }
 
-export function CardTableListReport({
+export function CardTableReport({
   title,
   description,
   icon,
   link,
   children,
-}: CardListReportProps) {
+}: CardTableReportProps) {
   return (
     <div className="rounded-md border border-blue-200">
       <div className="item-center borde flex flex-col justify-center rounded-md border-8 border-blue-100 bg-white">

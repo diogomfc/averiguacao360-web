@@ -1,16 +1,49 @@
 /* eslint-disable no-use-before-define */
 // desabilitar no documento o Unknown word.cSpell
 
-export interface Root {
+export interface Relatorio {
   message: string
   relatorio_filtrado: RelatorioFiltrado[]
+}
+
+export enum FuncaoUsuario {
+  Admin = 'Admin',
+  Analista = 'Analista',
+  Supervisor = 'Supervisor',
+  Revisor = 'Revisor',
+}
+
+export enum StatusRelatorio {
+  Formalizando = 'Formalizando',
+  Revisao = 'Revisao',
+  Aprovado = 'Aprovado',
+  Emitido = 'Emitido',
+  Corrigir = 'Corrigir',
+  Recuperado = 'Recuperado',
+  Irreversivel = 'Irreversivel',
+}
+
+export enum NaturezaSinistro {
+  Roubo = 'Roubo',
+  Furto = 'Furto',
+  Apreensao = 'Apreensao',
+  Outros = 'Outros',
+}
+
+export enum StatusFormulario {
+  Pendente = 'Pendente',
+  Formalizando = 'Formalizando',
+  Finalizado = 'Finalizado',
+  Aprovado = 'Aprovado',
+  Corrigir = 'Corrigir',
+  Rejeitado = 'Rejeitado',
 }
 
 export interface RelatorioFiltrado {
   id: string
   numero_processo: string
-  natureza_sinistro: string
-  status: string
+  natureza_sinistro: NaturezaSinistro
+  status: StatusRelatorio
   cliente: string
   cnpj: string
   data_entrada: string
@@ -27,7 +60,7 @@ export interface UsuarioResponsavel {
   email: string
   telefone: string
   avatar: string
-  funcao: string
+  funcao: FuncaoUsuario
 }
 
 export interface UsuariosPermitido {
@@ -36,7 +69,7 @@ export interface UsuariosPermitido {
   email: string
   telefone: string
   avatar: string
-  funcao: string
+  funcao: FuncaoUsuario
 }
 
 export interface FormulariosSelecionado {
@@ -73,7 +106,7 @@ export interface Etapas {
 export interface Form1ClienteSegurado {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   nome_cliente: string
   cnpj: string
@@ -94,7 +127,7 @@ export interface Form1ClienteSegurado {
 export interface Form2CaracteristicaSinistro {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   nome_seguradora: string
   natureza_sinistro: string
@@ -106,7 +139,7 @@ export interface Form2CaracteristicaSinistro {
 export interface Form3CronologiaSinistro {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   cep_local_sinistro: string
   endereco_local_sinistro: string
@@ -126,7 +159,7 @@ export interface Form3CronologiaSinistro {
 export interface Form4DoCarregamento {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   transportadora: string
   valor_embarcado: string
@@ -155,7 +188,7 @@ export interface Form4DoCarregamento {
 export interface Form5Motorista {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   nome_motorista: string
   cpf_motorista: string
@@ -184,7 +217,7 @@ export interface Form5Motorista {
 export interface Form6Ajudantes {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   nome_ajudante: string
   cpf_ajudante: string
@@ -210,7 +243,7 @@ export interface Form6Ajudantes {
 export interface Form7VeiculoTransportador {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   placa_cavalo_mecanico: string
   renavam_cavalo_mecanico: string
@@ -240,7 +273,7 @@ export interface Form7VeiculoTransportador {
 export interface Form8OrgaoPolicial {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   delegacia: string
   endereco_delegacia: string
@@ -260,7 +293,7 @@ export interface Form8OrgaoPolicial {
 export interface Form9GerenciamentoRiscoVeiculo {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   rastreador_sistema_rastreamento: string
   rastreador_marca: string
@@ -310,7 +343,7 @@ export interface Form9GerenciamentoRiscoVeiculo {
 export interface Form10SistemasProtecaoCarregamento {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   protecao_escolta: boolean
   protecao_comboio: boolean
@@ -323,7 +356,7 @@ export interface Form10SistemasProtecaoCarregamento {
 export interface Form11DeclaracaoMotoristaAjudante {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   formularioDoRelatorio_id: string
   arquivos_declaracoes: string[]
@@ -332,7 +365,7 @@ export interface Form11DeclaracaoMotoristaAjudante {
 export interface Form12GerenciamentoRiscoDeposito {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   deposito_sinistrado_segurado: boolean
   deposito_seguranca_eletronica: boolean
@@ -365,7 +398,7 @@ export interface Form12GerenciamentoRiscoDeposito {
 export interface Form13LocaisEvento {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   local_abordagem_rodovia: string
   local_abordagem_cep: string
@@ -433,7 +466,7 @@ export interface Form13LocaisEvento {
 export interface Form14ResumoAveriguacoes {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   resumo_averiguacoes: string
   formularioDoRelatorio_id: string
@@ -442,7 +475,7 @@ export interface Form14ResumoAveriguacoes {
 export interface Form15RecuperacaoCarga {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   recuperacao_carga_recuperada: boolean
   recuperacao_carga_parcial: boolean
@@ -453,7 +486,7 @@ export interface Form15RecuperacaoCarga {
 export interface Form16AnexosFotograficos {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   formularioDoRelatorio_id: string
   anexos_fotograficos: string[]
@@ -462,7 +495,7 @@ export interface Form16AnexosFotograficos {
 export interface Form17Conclusao {
   id: string
   numero_processo: string
-  status: string
+  status: StatusFormulario
   data_cadastro: string
   conclusao_averiguacoes: string
   formularioDoRelatorio_id: string

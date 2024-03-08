@@ -1,15 +1,10 @@
 import { api } from '@/lib/axios'
 
-import { RelatorioFiltrado } from './../types/typesAll'
+import { Relatorio } from './../types/typesAll'
 
-type GetProfileResponse = RelatorioFiltrado
+type GetProfileResponse = Relatorio
 
 export async function gerAllReport() {
-  try {
-    const response = await api.get<GetProfileResponse>('/relatorios')
-
-    return response.data
-  } catch (error) {
-    console.error('Erro ao obter relatórios:', error)
-  }
+  const response = await api.get<GetProfileResponse>('/relatorios')
+  return response.data
 }
