@@ -4,7 +4,7 @@ import { Header } from '@/components/header'
 
 export function Averiguacao360Layout() {
   return (
-    <div className="grid min-h-screen bg-hero-pattern bg-cover antialiased">
+    <div className="grid min-h-screen bg-hero-pattern bg-contain antialiased">
       <Header />
 
       <main className="mx-auto mb-10 mt-14 w-full max-w-[1600px] flex-1 overflow-y-auto px-4 text-blue-950">
