@@ -43,27 +43,31 @@ export function ItemCardStatus({
   description,
 }: ItemCardStatusProps) {
   return (
-    <div className="flex flex-col items-center gap-8 ">
-      <div
-        className={`relative flex flex-col items-center   justify-center   text-xl font-bold  ${
-          statusConclusao === 'Recuperado' ? 'text-green-500 ' : 'text-red-500 '
-        }`}
-      >
+    <div className="flex flex-col items-center">
+      <div className="relative flex h-full w-full flex-col items-center justify-center  text-xl font-bold">
         <img
           src={
             statusConclusao === 'Irreversivel'
               ? 'averiguacao360/imgs/img-status-report-irreversivel.svg'
               : 'averiguacao360/imgs/img-status-report-recuperado.svg'
           }
-          width={60}
-          height={60}
+          width={95}
+          height={95}
           alt="Status Report"
+          className=""
         />
-        <span className="absolute">{qtd}</span>
+        <span
+          className={` absolute top-[34px] ${
+            statusConclusao === 'Recuperado'
+              ? 'text-green-500 '
+              : 'text-red-500 '
+          }`}
+        >
+          {qtd}
+        </span>
       </div>
-
-      <div className="flex flex-col items-center  gap-4 pt-1 ">
-        <span className="text-base font-bold">{description}</span>
+      <div className="flex flex-col items-center gap-4">
+        <span className="mt-4 text-base font-bold">{description}</span>
         <Link
           to={link}
           className={`rounded border px-2 py-1 ${

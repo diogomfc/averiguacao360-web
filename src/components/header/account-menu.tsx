@@ -70,9 +70,12 @@ export function AccountMenu() {
                       />
                       <AvatarFallback
                         title={profile?.nome}
-                        className="border border-[#51A6E3]/20 bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20"
+                        className=" bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20"
                       >
-                        <User size={20} />
+                        <User
+                          size={20}
+                          className="text-[rgb(177,199,223)] group-hover:text-white"
+                        />
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col ">
@@ -109,11 +112,11 @@ export function AccountMenu() {
                           />
                           <AvatarFallback
                             title={profile?.nome}
-                            className="border border-[#51A6E3]/10 bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20"
+                            className=" bg-[#1D3150] p-1 group-hover:border-[#51A6E3]/20"
                           >
                             <User
                               size={40}
-                              color="rgb(32 166 185 / 0.8)"
+                              className="text-[rgb(177,199,223)]"
                               strokeWidth={1}
                             />
                             {/* {usuario?.nome.charAt(0).toUpperCase()} */}
