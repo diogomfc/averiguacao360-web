@@ -11,7 +11,7 @@ import { router } from './routes/router'
 export function App() {
   return (
     <HelmetProvider>
-      <Helmet titleTemplate="Smart Hub | %s" />
+      <Helmet titleTemplate="PamShub - | %s" />
       <Toaster richColors />
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
