@@ -66,8 +66,8 @@ export function ItemCardStatus({
           {qtd}
         </span>
       </div>
-      <div className="flex flex-col items-center gap-4">
-        <span className="mt-4 text-base font-bold">{description}</span>
+      <div className="flex flex-col items-center gap-5 ">
+        <span className="text-base font-bold">{description}</span>
         <Link
           to={link}
           className={`rounded border px-2 py-1 ${

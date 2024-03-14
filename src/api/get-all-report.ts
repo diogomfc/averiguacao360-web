@@ -2,9 +2,9 @@ import { api } from '@/lib/axios'
 
 import { Relatorio } from './../types/typesAll'
 
-type GetProfileResponse = Relatorio
+export type GetAllRelatorioResponse = Relatorio
 
-export async function gerAllReport() {
-  const response = await api.get<GetProfileResponse>('/relatorios')
+export async function getAllReport() {
+  const response = await api.get<GetAllRelatorioResponse>('/relatorios')
   return response.data
 }

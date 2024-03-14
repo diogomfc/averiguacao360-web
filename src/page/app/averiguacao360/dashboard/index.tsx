@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { RefreshCcw } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 
-import { gerAllReport } from '@/api/get-all-report'
+import { getAllReport } from '@/api/get-all-report'
 import {
   RelatorioStatus,
   RelatorioStatusIcon,
@@ -15,30 +15,37 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { RelatorioFiltrado } from '@/types/typesAll'
+import { countPendingSteps } from '@/utils/report-functions/count-pending-steps'
+import { formDetails } from '@/utils/report-functions/form-details'
 
 import { CardNewReport } from './card-new-report'
 import { CardStatusReport, ItemCardStatus } from './card-status-report'
 import { CardStepStatusReport } from './card-step-status-report'
 import { CardTableReport } from './card-table-report/card-table'
 import { CardTableRowReport } from './card-table-report/card-table-row'
+import { TableSkeleton } from './card-table-report/card-table-skeleton'
 
 export function DashboardAveriguacao360() {
-  // /isLoading: isLoadingRelatorios
-  const { data: relatorios } = useQuery({
+  const { data: relatorios, isLoading: isLoadingRelatorios } = useQuery({
     queryKey: ['relatorios'],
-    queryFn: gerAllReport,
+    queryFn: getAllReport,
+    staleTime: Infinity,
   })
 
   // Verificar status do relatório
-  const relatorioData = relatorios?.relatorio_filtrado
+  const relatorioData = relatorios?.relatorio_filtrado as RelatorioFiltrado[]
 
-  // Quantidade de relatórios status Formalizando
+  // Contagem de relatórios com status Formalizando
   function totalRelatoriosPorStatus(status: RelatorioStatus) {
     return (
       relatorioData?.filter((relatorio) => relatorio.status === status)
         .length || 0
     )
   }
+
+  // Contagem de etapas pendentes por relatório
+  const qtdEtapasPendentesPorRelatorio = countPendingSteps(relatorioData)
 
   return (
     <>
@@ -84,7 +91,7 @@ export function DashboardAveriguacao360() {
             </div>
             <div className="relative col-span-3">
               <CardStatusReport
-                title="Relatório Status"
+                title="Relatório status"
                 icon="averiguacao360/icons/icon-relatorio-status.svg"
               >
                 <div className="flex gap-16 lg:gap-4">
@@ -97,7 +104,7 @@ export function DashboardAveriguacao360() {
                   <ItemCardStatus
                     qtd={totalRelatoriosPorStatus('Irreversivel')}
                     statusConclusao="Irreversivel"
-                    description="Irreversíveis"
+                    description="Irreversivel"
                     link="/averiguacao360/irreversivel"
                   />
                 </div>
@@ -110,8 +117,9 @@ export function DashboardAveriguacao360() {
                 icon="averiguacao360/icons/icon-relatorio-list.svg"
                 link="/averiguacao360/list-reports"
               >
-                {/* Table List */}
-                {relatorioData?.length ? (
+                {isLoadingRelatorios ? (
+                  <TableSkeleton />
+                ) : relatorioData?.length ? (
                   <Table>
                     <TableHeader className="bg-blue-50/50">
                       <TableRow className=" text-xs hover:bg-transparent">
@@ -123,15 +131,24 @@ export function DashboardAveriguacao360() {
                             onClick={() => {}}
                           />
                         </TableHead>
-                        <TableHead className="pl-0">Segurado</TableHead>
-                        <TableHead className="w-[80px] ">Progresso</TableHead>
-                        <TableHead className="w-[80px] ">Etapas</TableHead>
-                        <TableHead className="w-[80px] ">Data</TableHead>
+                        <TableHead className="items-center justify-center  pl-0">
+                          Segurado
+                        </TableHead>
+                        <TableHead className="w-[80px] items-center  justify-center">
+                          Progresso
+                        </TableHead>
+                        <TableHead className=" w-[80px] items-center justify-center pl-5 ">
+                          Etapas
+                        </TableHead>
+                        <TableHead className="w-[80px] items-center justify-center">
+                          Data
+                        </TableHead>
                         <TableHead className="w-[80px] "></TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody className=" ">
                       {relatorioData?.slice(0, 4).map((report) => {
+                        const formDetailsForThisReport = formDetails([report])
                         return (
                           <CardTableRowReport
                             key={report.id}
@@ -145,6 +162,18 @@ export function DashboardAveriguacao360() {
                             qtdEtapasFormulario={
                               report.formularios_selecionados.length
                             }
+                            qtdEtapasFormularioPendente={
+                              qtdEtapasPendentesPorRelatorio[report.id] || 0
+                            }
+                            formulariosSelecionados={formDetailsForThisReport.map(
+                              (formDetail) => ({
+                                id: formDetail.id,
+                                name: formDetail.name,
+                                status: formDetail.status,
+                                label: formDetail.label,
+                                description: formDetail.description,
+                              }),
+                            )}
                             grupoUsuariosPermitido={report.usuarios_permitidos.map(
                               (usuario) => {
                                 return {

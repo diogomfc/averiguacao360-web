@@ -7,8 +7,7 @@ import {
   User,
   UserRoundCog,
 } from 'lucide-react'
-import { destroyCookie } from 'nookies'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { getProfile } from '@/api/get-profile'
 import { env } from '@/env'
@@ -25,22 +24,17 @@ import {
   NavigationMenuTrigger,
 } from '../ui/navigation-menu-user'
 import { Skeleton } from '../ui/skeleton'
+import { useSignOut } from './sing-out'
 import { StoreProfileDialog } from './store-profile-dialog'
 
 export function AccountMenu() {
-  const navigate = useNavigate()
+  const signOut = useSignOut()
 
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
     staleTime: Infinity,
   })
-
-  // Função para fazer o logout
-  const signOut = async () => {
-    destroyCookie(undefined, 'auth.token')
-    navigate('/', { replace: true })
-  }
 
   return (
     <Dialog>

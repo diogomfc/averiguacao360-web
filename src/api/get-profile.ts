@@ -2,14 +2,12 @@ import { parseCookies } from 'nookies'
 
 import { api } from '@/lib/axios'
 
-type Funcao = 'Admin' | 'Supervisor' | 'Analista' | 'Revisor'
-
 export interface GetProfileResponse {
   id: string
   nome: string
   email: string
   telefone: string
-  funcao: Funcao
+  funcao: string
   avatar?: string
   criado_em?: string
 }

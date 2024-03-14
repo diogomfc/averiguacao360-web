@@ -1,18 +1,12 @@
 import { LogOut, MessageCircleMore } from 'lucide-react'
-import { destroyCookie } from 'nookies'
-import { useNavigate } from 'react-router-dom'
 
 import { Separator } from '../ui/separator'
 import { AccountMenu } from './account-menu'
 import { HubMenuSheet } from './hub-menu-sheet'
+import { useSignOut } from './sing-out'
 
 export function Header() {
-  const navigate = useNavigate()
-
-  const signOut = async () => {
-    destroyCookie(undefined, 'auth.token')
-    navigate('/', { replace: true })
-  }
+  const signOut = useSignOut()
 
   return (
     <header className="fixed top-0 z-50 col-span-full flex h-[60px] w-full items-center border  border-transparent border-b-[#51A6E3] bg-[#1D3150] px-4 text-[rgb(177,199,223)] lg:h-[60px] lg:px-4">

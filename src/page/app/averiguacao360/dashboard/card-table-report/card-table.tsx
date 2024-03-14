@@ -37,13 +37,13 @@ export function CardTableReport({
               to={link}
               className="flex items-center gap-1 text-sm text-primary hover:text-blue-400"
             >
-              <span>Ver mais</span>
+              <span>Exibir Todos</span>
               <ArrowUpRight size={16} />
             </Link>
           </div>
         </header>
         <Separator className="h-1 bg-gradient-to-r from-white via-blue-200 to-white" />
-        <main className="flex min-h-[220px] flex-col  items-center">
+        <main className=" flex min-h-[220px]  flex-col items-center">
           {children}
         </main>
       </div>

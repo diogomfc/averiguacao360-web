@@ -61,6 +61,9 @@ module.exports = {
       boxShadow: {
         'input-form-login':
           '0px 12px 12px rgba(0, 0, 0, 0.08), 0px 0px 8px rgba(0, 0, 0, 0.08)',
+        'input-form': '0px 0px 32px rgba(189, 215, 241, 0.25)',
+        'input-form-hover':
+          '0px 12px 12px 0px rgba(223, 236, 248, 0.25), 0px 0px 8px 0px rgba(223, 236, 248, 0.25)',
       },
       borderRadius: {
         lg: 'var(--radius)',

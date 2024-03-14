@@ -1,12 +1,16 @@
+import { useQueryClient } from '@tanstack/react-query'
 import { destroyCookie } from 'nookies'
 import { useNavigate } from 'react-router-dom'
 
-// Função para fazer o signOut
-export function SignOut() {
-  // Remover o token do usuário do cookie
-  destroyCookie(undefined, 'auth.token')
-
-  // Redirecionar o usuário para a página de login
+export const useSignOut = () => {
   const navigate = useNavigate()
-  navigate('/')
+  const queryClient = useQueryClient()
+
+  const signOut = async () => {
+    queryClient.clear()
+    destroyCookie(undefined, 'auth.token')
+    navigate('/', { replace: true })
+  }
+
+  return signOut
 }
